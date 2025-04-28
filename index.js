@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 3001;
 
-app.use(express.json());
+app.use(express.json()); // allows use of req.body in handling post requests
 
 const phonebook = require('./phonebook.js');
 const Person = require('./js/person.js');
