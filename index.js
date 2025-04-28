@@ -27,6 +27,27 @@ app.get('/api/persons/:id', (req, res) => {
     }
 })
 
+app.delete('/api/persons/:id', (req, res) => {
+    const id = req.params.id;
+    let personIndex;
+
+    for (let i = 0; i < phonebook.length; i++) {
+        if (phonebook[i].id === id) {
+            personIndex = i;
+            break;
+        }
+    }
+
+    if (personIndex) {
+        phonebook.splice(personIndex, 1);
+        console.log(`Deletion of record with ID ${id} successful.`)
+        console.log(phonebook);
+        res.status(204).end();
+    } else {
+        console.log(`No person with ID ${id} found`);
+        res.status(204).end();
+    }
+})
 
 
 app.listen(PORT, () => {
