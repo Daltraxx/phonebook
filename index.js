@@ -2,7 +2,10 @@ const express = require('express');
 const app = express();
 const PORT = 3001;
 
+app.use(express.json());
+
 const phonebook = require('./phonebook.js');
+const Person = require('./js/person.js');
 
 app.get('/', (req, res) => {
     res.send('<h1>This is a phonebook api!</h1>');
@@ -24,6 +27,26 @@ app.get('/api/persons/:id', (req, res) => {
         res.json(person);
     } else {
         res.status(404).end();
+    }
+})
+
+app.post('/api/persons', (req, res) => {
+    const personData = req.body;
+    const { name, number } = personData;
+    if (!name || !number) {
+        console.log('Missing fields');
+        res.status(400).json({
+            error: 'content missing'
+        })
+    } else if (phonebook.find(person => person.name === name)) {
+        console.log('Person with that name already exists');
+        res.status(400).json({
+            error: 'Person with that name already exists'
+        })
+    } else {
+        phonebook.push(new Person(name, number));
+        console.log(phonebook);
+        res.json(personData);
     }
 })
 
