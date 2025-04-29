@@ -4,6 +4,10 @@ const PORT = 3001;
 
 app.use(express.json()); // allows use of req.body in handling post requests
 
+const morgan = require('morgan');
+
+app.use(morgan('tiny'));
+
 const phonebook = require('./phonebook.js');
 const Person = require('./js/person.js');
 
