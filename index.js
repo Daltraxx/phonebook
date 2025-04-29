@@ -4,6 +4,7 @@ const PORT = 3001;
 
 app.use(express.json()); // allows use of req.body in handling post requests
 
+// morgan middleware and configuration that logs incoming request body
 const morgan = require('morgan');
 morgan.token('body', (req) => JSON.stringify(req.body));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
