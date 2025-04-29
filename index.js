@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
-const PORT = 3001;
+const dotenv = require('dotenv');
+dotenv.config();
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json()); // allows use of req.body in handling post requests
 
